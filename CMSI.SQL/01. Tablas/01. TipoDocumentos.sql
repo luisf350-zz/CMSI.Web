@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[TipoDocumentos]
+(
+	Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	Nombre VARCHAR(150) NOT NULL,
+	Descripcion VARCHAR(500) NULL,
+	FechaCreacion DATETIME NOT NULL,
+	FechaModificacion DATETIME NOT NULL
+)

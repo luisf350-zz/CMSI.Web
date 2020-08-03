@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMSI.Web", "CMSI.Web\CMSI.Web.csproj", "{5DE589BB-99AB-4A62-A133-17743B80A1CE}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CMSI.SQL", "CMSI.SQL\CMSI.SQL.sqlproj", "{83736792-C8C4-4B3A-A6AE-53CDB9883D19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DE589BB-99AB-4A62-A133-17743B80A1CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DE589BB-99AB-4A62-A133-17743B80A1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DE589BB-99AB-4A62-A133-17743B80A1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DE589BB-99AB-4A62-A133-17743B80A1CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83736792-C8C4-4B3A-A6AE-53CDB9883D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83736792-C8C4-4B3A-A6AE-53CDB9883D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83736792-C8C4-4B3A-A6AE-53CDB9883D19}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{83736792-C8C4-4B3A-A6AE-53CDB9883D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83736792-C8C4-4B3A-A6AE-53CDB9883D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83736792-C8C4-4B3A-A6AE-53CDB9883D19}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CBA30651-D32E-402A-8869-0756FCC48187}
+	EndGlobalSection
+EndGlobal

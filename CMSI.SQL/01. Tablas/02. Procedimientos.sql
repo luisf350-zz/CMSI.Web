@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[Procedimientos]
+(
+	Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	Codigo VARCHAR(150) NOT NULL,
+	Nombre VARCHAR(150) NOT NULL,
+	Descripcion VARCHAR(500) NULL,
+	Precio MONEY NOT NULL,
+	FechaCreacion DATETIME NOT NULL,
+	FechaModificacion DATETIME NOT NULL
+)
