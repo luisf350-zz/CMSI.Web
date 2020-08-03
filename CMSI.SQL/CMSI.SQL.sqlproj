@@ -61,5 +61,6 @@
   <ItemGroup>
     <Build Include="01. Tablas\01. TipoDocumentos.sql" />
     <Build Include="01. Tablas\02. Procedimientos.sql" />
+    <Build Include="01. Tablas\03. Profesionales.sql" />
   </ItemGroup>
 </Project>

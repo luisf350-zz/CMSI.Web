@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[Profesionales]
+(
+	Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	NroIdentificacion BIGINT NOT NULL,
+	Nombres VARCHAR(150) NOT NULL,
+	Apellidos VARCHAR(150) NOT NULL,
+	Registro VARCHAR(50) NOT NULL,
+	Especialidad VARCHAR(150) NOT NULL,
+	Observaciones VARCHAR(500) NULL,
+	FechaCreacion DATETIME NOT NULL,
+	FechaModificacion DATETIME NOT NULL
+)

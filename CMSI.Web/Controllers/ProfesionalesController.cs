@@ -9,22 +9,22 @@ using CMSI.Web.Models;
 
 namespace CMSI.Web.Controllers
 {
-    public class TiposDocumentosController : Controller
+    public class ProfesionalesController : Controller
     {
         private readonly DataContext _context;
 
-        public TiposDocumentosController(DataContext context)
+        public ProfesionalesController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: TiposDocumentos
+        // GET: Profesionales
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TipoDocumentos.ToListAsync());
+            return View(await _context.Profesionales.ToListAsync());
         }
 
-        // GET: TiposDocumentos/Details/5
+        // GET: Profesionales/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -32,50 +32,48 @@ namespace CMSI.Web.Controllers
                 return NotFound();
             }
 
-            var tipoDocumento = await _context.TipoDocumentos
+            var profesional = await _context.Profesionales
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tipoDocumento == null)
+            if (profesional == null)
             {
                 return NotFound();
             }
 
-            return View(tipoDocumento);
+            return View(profesional);
         }
 
-        // GET: TiposDocumentos/Create
+        // GET: Profesionales/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: TiposDocumentos/Create
+        // POST: Profesionales/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TipoDocumento tipoDocumento)
+        public async Task<IActionResult> Create(Profesional profesional)
         {
             if (ModelState.IsValid)
             {
-                var dbObjectNombre = await _context.Procedimientos.FirstOrDefaultAsync(x => x.Nombre == tipoDocumento.Nombre);
+                var dbObjectIdentificacion = await _context.Profesionales.FirstOrDefaultAsync(x => x.NroIdentificacion == profesional.NroIdentificacion);
 
-                if (dbObjectNombre == null)
+                if (dbObjectIdentificacion == null)
                 {
-                    tipoDocumento.Id = Guid.NewGuid();
-                    tipoDocumento.FechaModificacion = DateTime.Now;
-                    tipoDocumento.FechaCreacion = DateTime.Now;
+                    profesional.Id = Guid.NewGuid();
+                    profesional.FechaCreacion = DateTime.Now;
+                    profesional.FechaModificacion = DateTime.Now;
 
-                    _context.Add(tipoDocumento);
+                    _context.Add(profesional);
                     await _context.SaveChangesAsync();
-
                     return RedirectToAction(nameof(Index));
                 }
 
-                ModelState.AddModelError("Nombre", "Ya existe un registro con el mismo valor.");
-
+                ModelState.AddModelError("NroIdentificacion", "Ya existe un registro con el mismo valor.");
             }
-            return View(tipoDocumento);
+            return View(profesional);
         }
 
-        // GET: TiposDocumentos/Edit/5
+        // GET: Profesionales/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -83,39 +81,40 @@ namespace CMSI.Web.Controllers
                 return NotFound();
             }
 
-            var tipoDocumento = await _context.TipoDocumentos.FindAsync(id);
-            if (tipoDocumento == null)
+            var profesional = await _context.Profesionales.FindAsync(id);
+            if (profesional == null)
             {
                 return NotFound();
             }
-            return View(tipoDocumento);
+            return View(profesional);
         }
 
-        // POST: TiposDocumentos/Edit/5
+        // POST: Profesionales/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, TipoDocumento tipoDocumento)
+        public async Task<IActionResult> Edit(Guid id, Profesional profesional)
         {
-            if (id != tipoDocumento.Id)
+            if (id != profesional.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                var dbObjectNombre = await _context.Procedimientos.FirstOrDefaultAsync(x => x.Id != id && x.Nombre == tipoDocumento.Nombre);
+                var dbObjectIdentificacion = await _context.Profesionales.FirstOrDefaultAsync(x => x.Id != id && x.NroIdentificacion == profesional.NroIdentificacion);
 
-                if (dbObjectNombre == null)
+                if (dbObjectIdentificacion == null)
                 {
                     try
                     {
-                        tipoDocumento.FechaModificacion = DateTime.Now;
-                        _context.Update(tipoDocumento);
+                        profesional.FechaModificacion = DateTime.Now;
+
+                        _context.Update(profesional);
                         await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!TipoDocumentoExists(tipoDocumento.Id))
+                        if (!ProfesionalExists(profesional.Id))
                         {
                             return NotFound();
                         }
@@ -127,12 +126,12 @@ namespace CMSI.Web.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                ModelState.AddModelError("Nombre", "Ya existe un registro con el mismo valor.");
+                ModelState.AddModelError("NroIdentificacion", "Ya existe un registro con el mismo valor.");
             }
-            return View(tipoDocumento);
+            return View(profesional);
         }
 
-        // GET: TiposDocumentos/Delete/5
+        // GET: Profesionales/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -140,30 +139,30 @@ namespace CMSI.Web.Controllers
                 return NotFound();
             }
 
-            var tipoDocumento = await _context.TipoDocumentos
+            var profesional = await _context.Profesionales
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tipoDocumento == null)
+            if (profesional == null)
             {
                 return NotFound();
             }
 
-            return View(tipoDocumento);
+            return View(profesional);
         }
 
-        // POST: TiposDocumentos/Delete/5
+        // POST: Profesionales/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var tipoDocumento = await _context.TipoDocumentos.FindAsync(id);
-            _context.TipoDocumentos.Remove(tipoDocumento);
+            var profesional = await _context.Profesionales.FindAsync(id);
+            _context.Profesionales.Remove(profesional);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TipoDocumentoExists(Guid id)
+        private bool ProfesionalExists(Guid id)
         {
-            return _context.TipoDocumentos.Any(e => e.Id == id);
+            return _context.Profesionales.Any(e => e.Id == id);
         }
     }
 }

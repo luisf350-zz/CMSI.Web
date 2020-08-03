@@ -7,6 +7,7 @@ namespace CMSI.Web.Models
         [Required]
         public string Nombre { get; set; }
 
+        [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
     }
 }
