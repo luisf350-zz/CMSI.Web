@@ -53,7 +53,8 @@ namespace CMSI.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dbObjectNombre = await _context.Procedimientos.FirstOrDefaultAsync(x => x.Nombre == tipoDocumento.Nombre);
+                var dbObjectNombre = await _context.Procedimientos
+                    .FirstOrDefaultAsync(x => x.Nombre == tipoDocumento.Nombre);
 
                 if (dbObjectNombre == null)
                 {
@@ -101,7 +102,8 @@ namespace CMSI.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var dbObjectNombre = await _context.Procedimientos.FirstOrDefaultAsync(x => x.Id != id && x.Nombre == tipoDocumento.Nombre);
+                var dbObjectNombre = await _context.Procedimientos
+                    .FirstOrDefaultAsync(x => x.Id != id && x.Nombre == tipoDocumento.Nombre);
 
                 if (dbObjectNombre == null)
                 {

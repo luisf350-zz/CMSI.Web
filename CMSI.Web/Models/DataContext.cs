@@ -11,5 +11,6 @@ namespace CMSI.Web.Models
         public DbSet<TipoDocumento> TipoDocumentos { get; set; }
         public DbSet<Procedimiento> Procedimientos { get; set; }
         public DbSet<Profesional> Profesionales { get; set; }
+        public DbSet<PorcentajeProfesional> PorcentajeProfesional { get; set; }
     }
 }

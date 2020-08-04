@@ -47,8 +47,6 @@ namespace CMSI.Web.Controllers
         }
 
         // POST: Procedimientos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Procedimiento procedimiento)
@@ -67,6 +65,23 @@ namespace CMSI.Web.Controllers
 
                     _context.Add(procedimiento);
                     await _context.SaveChangesAsync();
+
+                    var profesionales = await _context.Profesionales.ToListAsync();
+
+                    foreach (var item in profesionales)
+                    {
+                        _context.Add(new PorcentajeProfesional
+                        {
+                            Id = Guid.NewGuid(),
+                            ProfesionalId = item.Id,
+                            ProcedimientoId = procedimiento.Id,
+                            Porcentaje = 0,
+                            FechaCreacion = DateTime.Now,
+                            FechaModificacion = DateTime.Now
+                        });
+                    }
+                    await _context.SaveChangesAsync();
+
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -94,8 +109,6 @@ namespace CMSI.Web.Controllers
         }
 
         // POST: Procedimientos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, Procedimiento procedimiento)
@@ -107,8 +120,10 @@ namespace CMSI.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var dbObjectCodigo = await _context.Procedimientos.FirstOrDefaultAsync(x => x.Id != id && x.Codigo == procedimiento.Codigo);
-                var dbObjectNombre = await _context.Procedimientos.FirstOrDefaultAsync(x => x.Id != id && x.Nombre == procedimiento.Nombre);
+                var dbObjectCodigo = await _context.Procedimientos
+                    .FirstOrDefaultAsync(x => x.Id != id && x.Codigo == procedimiento.Codigo);
+                var dbObjectNombre = await _context.Procedimientos
+                    .FirstOrDefaultAsync(x => x.Id != id && x.Nombre == procedimiento.Nombre);
 
                 if (dbObjectCodigo == null && dbObjectNombre == null)
                 {

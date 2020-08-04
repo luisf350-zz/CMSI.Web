@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CMSI.Web.Models
 {
@@ -22,5 +23,7 @@ namespace CMSI.Web.Models
 
         [DataType(DataType.MultilineText)]
         public string Observaciones { get; set; }
+
+        public List<PorcentajeProfesional> Porcentajes { get; set; }
     }
 }

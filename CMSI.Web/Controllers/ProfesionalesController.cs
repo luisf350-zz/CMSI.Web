@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
 namespace CMSI.Web.Controllers
@@ -53,7 +54,8 @@ namespace CMSI.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dbObjectIdentificacion = await _context.Profesionales.FirstOrDefaultAsync(x => x.NroIdentificacion == profesional.NroIdentificacion);
+                var dbObjectIdentificacion = await _context.Profesionales
+                    .FirstOrDefaultAsync(x => x.NroIdentificacion == profesional.NroIdentificacion);
 
                 if (dbObjectIdentificacion == null)
                 {
@@ -63,6 +65,23 @@ namespace CMSI.Web.Controllers
 
                     _context.Add(profesional);
                     await _context.SaveChangesAsync();
+
+                    var procedimientos = await _context.Procedimientos.ToListAsync();
+
+                    foreach (var item in procedimientos)
+                    {
+                        _context.Add(new PorcentajeProfesional
+                        {
+                            Id = Guid.NewGuid(),
+                            ProfesionalId = profesional.Id,
+                            ProcedimientoId = item.Id,
+                            Porcentaje = 0,
+                            FechaCreacion = DateTime.Now,
+                            FechaModificacion = DateTime.Now
+                        });
+                    }
+                    await _context.SaveChangesAsync();
+
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -84,6 +103,9 @@ namespace CMSI.Web.Controllers
             {
                 return NotFound();
             }
+            profesional.Porcentajes = await _context.PorcentajeProfesional
+                .Include(x => x.Procedimiento)
+                .Where(x => x.ProfesionalId == id).ToListAsync();
             return View(profesional);
         }
 
@@ -99,7 +121,8 @@ namespace CMSI.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var dbObjectIdentificacion = await _context.Profesionales.FirstOrDefaultAsync(x => x.Id != id && x.NroIdentificacion == profesional.NroIdentificacion);
+                var dbObjectIdentificacion = await _context.Profesionales
+                    .FirstOrDefaultAsync(x => x.Id != id && x.NroIdentificacion == profesional.NroIdentificacion);
 
                 if (dbObjectIdentificacion == null)
                 {
