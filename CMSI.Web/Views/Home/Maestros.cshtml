@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h3 class="display-5">Maestros</h3>
+</div>
+
+<div class="container">
+    <div class="row row-cols-2">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tipos Documentos</h5>
+                    <p class="card-text">Maestro que tiene cada uno de los tipos de documentos del aplicativo</p>
+                    <a asp-area="" asp-controller="TiposDocumentos" asp-action="Index" class="btn btn-primary">Abrir</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Procedimientos</h5>
+                    <p class="card-text">Maestro que tiene los procedimientos de la institución</p>
+                    <a asp-area="" asp-controller="Procedimientos" asp-action="Index" class="btn btn-primary">Abrir</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Profesionales</h5>
+                    <p class="card-text">Maestro que tiene los profesionales de la aplicación</p>
+                    <a asp-area="" asp-controller="Profesionales" asp-action="Index" class="btn btn-primary">Abrir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

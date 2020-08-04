@@ -23,7 +23,7 @@ namespace CMSI.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Maestros()
         {
             return View();
         }
