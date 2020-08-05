@@ -19,6 +19,13 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
+                    <label asp-for="TipoDocumentoId" class="control-label"></label>
+                    @Html.DropDownListFor(model => model.TipoDocumentoId, new SelectList(ViewBag.TipoDocumentos, "Id", "Nombre"), "Seleccione un Tipo de Documento:", new { @class = "form-control" })
+                    <span asp-validation-for="TipoDocumentoId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
                     <label asp-for="NroIdentificacion" class="control-label"></label>
                     <input asp-for="NroIdentificacion" class="form-control" />
                     <span asp-validation-for="NroIdentificacion" class="text-danger"></span>

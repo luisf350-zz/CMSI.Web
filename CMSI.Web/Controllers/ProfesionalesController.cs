@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
 namespace CMSI.Web.Controllers
@@ -20,7 +19,7 @@ namespace CMSI.Web.Controllers
         // GET: Profesionales
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Profesionales.ToListAsync());
+            return View(await _context.Profesionales.Include(x=>x.TipoDocumento).ToListAsync());
         }
 
         // GET: Profesionales/Details/5
@@ -42,8 +41,9 @@ namespace CMSI.Web.Controllers
         }
 
         // GET: Profesionales/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.TipoDocumentos = await _context.TipoDocumentos.ToListAsync();
             return View();
         }
 
@@ -52,6 +52,7 @@ namespace CMSI.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Profesional profesional)
         {
+            ModelState.Remove("TipoDocumento");
             if (ModelState.IsValid)
             {
                 var dbObjectIdentificacion = await _context.Profesionales
@@ -87,6 +88,7 @@ namespace CMSI.Web.Controllers
 
                 ModelState.AddModelError("NroIdentificacion", "Ya existe un registro con el mismo valor.");
             }
+            ViewBag.TipoDocumentos = await _context.TipoDocumentos.ToListAsync();
             return View(profesional);
         }
 
@@ -103,6 +105,7 @@ namespace CMSI.Web.Controllers
             {
                 return NotFound();
             }
+            ViewBag.TipoDocumentos = await _context.TipoDocumentos.ToListAsync();
             profesional.Porcentajes = await _context.PorcentajeProfesional
                 .Include(x => x.Procedimiento)
                 .Where(x => x.ProfesionalId == id).ToListAsync();
@@ -149,6 +152,7 @@ namespace CMSI.Web.Controllers
 
                 ModelState.AddModelError("NroIdentificacion", "Ya existe un registro con el mismo valor.");
             }
+            ViewBag.TipoDocumentos = await _context.TipoDocumentos.ToListAsync();
             return View(profesional);
         }
 
