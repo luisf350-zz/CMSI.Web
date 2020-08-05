@@ -63,5 +63,6 @@
     <Build Include="01. Tablas\02. Procedimientos.sql" />
     <Build Include="01. Tablas\03. Profesionales.sql" />
     <Build Include="01. Tablas\04. PorcentajeProfesional.sql" />
+    <Build Include="01. Tablas\05. Log.sql" />
   </ItemGroup>
 </Project>
